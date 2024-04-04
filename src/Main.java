@@ -26,17 +26,15 @@ public class Main {
         switch (choice) {
             case 1:
                 // 进入管理员系统
-                System.out.println("您选择了管理员角色，可以查看已上架的商品");
                 AdminSystem.start();
-                // 管理员功能...
                 break;
             case 2:
                 // 进入卖家系统
                 SellerSystem.start();
+                break;
             case 3:
                 // 进入买家系统
                 BuyerSystem.start();
-                // 买家功能...
                 break;
             default:
                 System.out.println("输入错误，请重新选择。");

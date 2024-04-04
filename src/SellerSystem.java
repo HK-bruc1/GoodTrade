@@ -1,3 +1,4 @@
+import java.util.List;
 import java.util.Scanner;
 
 /**
@@ -7,7 +8,10 @@ import java.util.Scanner;
  */
 public class SellerSystem {
     public static void start(){
+        //获取键盘输入对象
         Scanner scanner = new Scanner(System.in);
+        //拿到对外提供的单例对象
+        Seller seller = Seller.getSingle();
         System.out.println("您选择了卖家角色，可以上架商品和查看订单。");
         System.out.println("请您输入联系方式，方便买家联系。");
         String sellerContact = scanner.next();
@@ -24,14 +28,18 @@ public class SellerSystem {
                 case 1:
                     System.out.print("请输入商品名称：");
                     String productName = scanner.next();
-                    //上传商品信息
-                    Seller seller = new Seller();
-                    seller.addProduct(new Product(productName, sellerContact));
-                    System.out.println("上架商品成功！" + productName + "-" + sellerContact  );
+                    //有了商品的两个条件我直接实例化一个商品对象，作为存储的实参
+                    Product product = new Product(productName, sellerContact);
+                    //上传商品信息，把新实例化的对象存进集合去了
+                    seller.addProduct(product);
+                    System.out.println("上架商品成功！" + product.getProductName() + "  上传者:  " + product.getSellerContact());
+                    //跳出switch语句回到循环开始
                     break;
                 case 2:
                     // 查看订单...
-                    Seller.displayOrders(new Buyer());
+                    // 获取对外的单例订单列表
+                    List<Order> ordersSingle = Buyer.getOrdersSingle();
+                    Seller.displayOrders(ordersSingle);
                     break;
                 case 3:
                     System.out.println("退出系统，谢谢使用！");

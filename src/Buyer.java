@@ -7,18 +7,23 @@ import java.util.ArrayList;
  * @date: 2024/4/3 16:32
  */
 public class Buyer {
-    private static List<Order> orders;
-    public Buyer() {
-        orders = new ArrayList<>();
+    //使用单例模式，全局使用一个buyer对象
+    private static Buyer buyer = new Buyer();
+    public static Buyer getSingle()  {
+        return buyer;
     }
-    // 添加订单
-    public  void addOrder(Product product, String BuyerContact) {
-        Order order = new Order(product, BuyerContact);
-        orders.add(order);
-    }
-    // 获取订单列表
-    public List<Order> getOrders() {
+
+    //全局使用一个订单集合，用静态私有修饰提供对外的单例方法
+    private static List<Order> orders = new ArrayList<>();
+    public static List<Order>  getOrdersSingle(){
         return orders;
     }
 
+    // 添加订单（实例方法需要new对象，两个参数传入一个没有卖家联系方式的商品对象只有商品名称
+    // 传入买家的联系方式
+    public void addOrder(Product product, String buyerContact) {
+        Order order = new Order(product, buyerContact);
+        orders.add(order);
+    }
+    //
 }
